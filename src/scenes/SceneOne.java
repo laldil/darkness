@@ -3,6 +3,16 @@ package scenes;
 import java.util.Scanner;
 
 public class SceneOne {
+
+    private static SceneOne sceneOne;
+    public static SceneOne getSceneOne(){
+        if(sceneOne == null) sceneOne = new SceneOne();
+        return sceneOne;
+    }
+    private SceneOne(){
+
+    }
+
     Scanner sc = new Scanner(System.in);
     private boolean isWireFound = false;
     private boolean isNoteFound = false;
@@ -79,5 +89,9 @@ public class SceneOne {
                 System.out.println("You've chose a non-existent option, try again");
             }
         }
+    }
+
+    public boolean isMasterKeyDone() {
+        return isMasterKeyDone;
     }
 }

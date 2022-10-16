@@ -11,10 +11,7 @@ public class Main {
         System.out.println("Enter your name: ");
         MainCharacter character = new MainCharacter(sc.nextLine());
 
-//        SceneOne sceneOne = new SceneOne();
-//        sceneOne.startScene();
-
-        SceneTwo sceneTwo = new SceneTwo();
-        sceneTwo.startScene();
+        SceneOne.getSceneOne().startScene();
+        if(SceneOne.getSceneOne().isMasterKeyDone()) SceneTwo.getSceneTwo().startScene();
     }
 }

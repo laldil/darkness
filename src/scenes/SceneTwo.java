@@ -3,8 +3,19 @@ package scenes;
 import java.util.Scanner;
 
 public class SceneTwo {
+
+    private static SceneTwo sceneTwo;
+    public static SceneTwo getSceneTwo(){
+        if(sceneTwo == null) sceneTwo = new SceneTwo();
+        return sceneTwo;
+    }
+    private SceneTwo(){
+
+    }
+
+    Scanner sc = new Scanner(System.in);
+
     public void startScene(){
-        Scanner sc = new Scanner(System.in);
 //        Тут история какая-то(мб напали на эту тюрьму или что-то такое,
 //        чтобы была возможность открыть дверь и страже не было у дверей)
         System.out.println("1. Open the door");
