@@ -1,5 +1,7 @@
 import characterSettings.MainCharacter;
 import scenes.SceneOne;
+import scenes.SceneTwo;
+
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +11,10 @@ public class Main {
         System.out.println("Enter your name: ");
         MainCharacter character = new MainCharacter(sc.nextLine());
 
-        SceneOne sceneOne = new SceneOne();
-        sceneOne.scene();
+//        SceneOne sceneOne = new SceneOne();
+//        sceneOne.startScene();
+
+        SceneTwo sceneTwo = new SceneTwo();
+        sceneTwo.startScene();
     }
 }

@@ -22,7 +22,7 @@ public class SceneOne {
         System.out.println("___________________________");
     }
 
-    public void scene(){
+    public void startScene(){
         while(!isMasterKeyDone){
             mainText();
 
@@ -56,7 +56,6 @@ public class SceneOne {
                     System.out.println("\n1. Go back");
                     sc.next();
                 }
-//                else continue;
             }
             else if(choice.equals("4")){
                 System.out.println("Early morning of the next day. " +
