@@ -12,6 +12,7 @@ public class MainCharacter {
         this.name = name;
         this.money = 0;
         this.lvl = 1;
+
     }
 
     public Role getRole() {
@@ -45,4 +46,5 @@ public class MainCharacter {
     public void setLvl(int lvl) {
         this.lvl = lvl;
     }
+
 }

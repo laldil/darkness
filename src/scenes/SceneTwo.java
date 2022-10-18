@@ -21,6 +21,7 @@ public class SceneTwo {
 
     Scanner sc = new Scanner(System.in);
     MainCharacter character;
+    boolean isSecondSceneDone = false;
 
     public void setCharacter(MainCharacter character) {
         this.character = character;
@@ -34,14 +35,21 @@ public class SceneTwo {
         System.out.println("The door opened. There is a security desk in front of you. " +
                 "On the left side, the door is wide open. " +
                 "On the right is a closed door with the inscription \"Armory\".");
-        while(true){
+        while(!isSecondSceneDone){
             System.out.println("""
                     1. Inspect the desk
                     2. Run out the door.
                     3. Go to the armory room.""");
             String choice = sc.next();
             if(choice.equals("1")){
-
+                System.out.println("There is a book on the table.");
+                System.out.println("1. Go back");
+                System.out.println("2. Open the book");
+                String innerChoice = sc.next();
+                if(innerChoice.equals("2")){
+                    System.out.println("You opened the book, there's nothing special in the book.\n" +
+                            "Just as you were about to close the book, you saw the code: 1042.");
+                }
             }
             else if(choice.equals("2")){
                 if(character.getRole() == null){
@@ -49,7 +57,10 @@ public class SceneTwo {
                     System.out.println("1. Go back");
                     sc.next();
                 }
-
+                else{
+                    isSecondSceneDone = true;
+                    break;
+                }
             }
             else if(choice.equals("3")){
                 System.out.println("There are racks of weapons in the room. Above them is an inscription with classes:\n" +

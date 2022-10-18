@@ -42,4 +42,11 @@ public class Role {
     public void setDefendBehavior(DefendBehavior defendBehavior) {
         this.defendBehavior = defendBehavior;
     }
+
+    public void performAttack(){
+        attack.attack();
+    }
+    public void performDefend(){
+        defendBehavior.defend();
+    }
 }
