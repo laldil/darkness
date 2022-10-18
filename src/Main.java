@@ -12,6 +12,8 @@ public class Main {
         MainCharacter character = new MainCharacter(sc.nextLine());
 
         SceneOne.getSceneOne().startScene();
+        SceneTwo.getSceneTwo().setCharacter(character);
         if(SceneOne.getSceneOne().isMasterKeyDone()) SceneTwo.getSceneTwo().startScene();
+
     }
 }
