@@ -92,4 +92,8 @@ public class SceneTwo {
         System.out.println("You took the " + character.getRole().getRoleName() + "'s equipment. \nYour damage: " + character.getRole().getDamage());
         System.out.println("Your defence: " + character.getRole().getDefence());
     }
+
+    public boolean isSecondSceneDone() {
+        return isSecondSceneDone;
+    }
 }

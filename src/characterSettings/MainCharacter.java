@@ -2,17 +2,26 @@ package characterSettings;
 
 import characterSettings.Roles.Role;
 
-public class MainCharacter {
+public class MainCharacter implements Observer{
     private String name;
     private int money;
     private int lvl;
+    private int HP;
     private Role role;
 
     public MainCharacter(String name) {
-        this.name = name;
-        this.money = 0;
-        this.lvl = 1;
+        setName(name);
+        setMoney(0);
+        setLvl(1);
+        setHP(100);
+    }
 
+    public int getHP() {
+        return HP;
+    }
+
+    public void setHP(int HP) {
+        this.HP = HP;
     }
 
     public Role getRole() {
@@ -47,4 +56,8 @@ public class MainCharacter {
         this.lvl = lvl;
     }
 
+    @Override
+    public void handleEvent(int enemyHP, String enemyName) {
+        System.out.println("You've done damage to the enemy.\n" + enemyName + "'s HP: " + enemyHP);
+    }
 }

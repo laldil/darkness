@@ -1,5 +1,7 @@
 import characterSettings.MainCharacter;
+import enemySettings.Enemy;
 import scenes.SceneOne;
+import scenes.SceneThree;
 import scenes.SceneTwo;
 
 import java.util.Scanner;
@@ -12,8 +14,12 @@ public class Main {
         MainCharacter character = new MainCharacter(sc.nextLine());
 
         SceneOne.getSceneOne().startScene();
+
         SceneTwo.getSceneTwo().setCharacter(character);
         if(SceneOne.getSceneOne().isMasterKeyDone()) SceneTwo.getSceneTwo().startScene();
+
+        SceneThree.getSceneThree().setCharacter(character);
+        if(SceneTwo.getSceneTwo().isSecondSceneDone()) SceneThree.getSceneThree().startScene();
 
     }
 }
