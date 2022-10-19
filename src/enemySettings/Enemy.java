@@ -31,9 +31,11 @@ public class Enemy implements Observed{
 
     public void setHP(int HP) {
         this.HP = HP;
-        if(getHP() >= 0){
-            notifyObserver();
-        }
+        if(getHP() >= 0) notifyObserver();
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     @Override

@@ -7,7 +7,6 @@ public class Archer extends Role {
     public Archer() {
         setRoleName("Archer");
         setDamage(7);
-        setDefence(1);
         setAttack(new AttackWithBow());
     }
 }

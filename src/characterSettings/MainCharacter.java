@@ -58,6 +58,6 @@ public class MainCharacter implements Observer{
 
     @Override
     public void handleEvent(int enemyHP, String enemyName) {
-        System.out.println("You've done damage to the enemy.\n" + enemyName + "'s HP: " + enemyHP);
+        System.out.println(enemyName + "'s HP: " + enemyHP);
     }
 }

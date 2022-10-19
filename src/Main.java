@@ -1,5 +1,4 @@
 import characterSettings.MainCharacter;
-import enemySettings.Enemy;
 import scenes.SceneOne;
 import scenes.SceneThree;
 import scenes.SceneTwo;
