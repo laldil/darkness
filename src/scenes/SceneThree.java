@@ -3,6 +3,9 @@ package scenes;
 import characterSettings.MainCharacter;
 import enemySettings.Enemy;
 import enemySettings.roles.Archer;
+import scenes.chest.Chest;
+import scenes.chest.Close;
+import scenes.chest.Open;
 
 import java.util.Scanner;
 
@@ -33,11 +36,49 @@ public class SceneThree {
             boolean defendForRound = false;
 
             if(choice.equals("1")){
-                character.getRole().performAttack();
-                enemy.setHP(enemy.getHP() - character.getRole().getDamage());
+                System.out.println("1. Simple attack\n2. Special attack 1\n3. Special attack 2\n4. Ultimate");
+                String innerChoice = sc.next();
+                if(innerChoice.equals("1")) {
+                    character.getRole().performAttack();
+                    enemy.setHP(enemy.getHP() - character.getRole().getDamage());
+                }
+                else if(innerChoice.equals("2")){
+                    if(character.getRole().getLvl() > 5){
+                        character.getRole().performSpecialAttack1();
+                        enemy.setHP(enemy.getHP() - (character.getRole().getDamage() + 3));
+                    }
+                    else {
+                        System.out.println("Your lvl is low. You did simple attack");
+                        character.getRole().performAttack();
+                        enemy.setHP(enemy.getHP() - character.getRole().getDamage());
+                    }
+                }
+                else if(innerChoice.equals("3")){
+                    if(character.getRole().getLvl() > 10){
+                        character.getRole().performSpecialAttack2();
+                        enemy.setHP(enemy.getHP() - (character.getRole().getDamage() + 5));
+                    }
+                    else {
+                        System.out.println("Your lvl is low. You did simple attack");
+                        character.getRole().performAttack();
+                        enemy.setHP(enemy.getHP() - character.getRole().getDamage());
+                    }
+                }
+                else if(innerChoice.equals("4")){
+                    if(character.getRole().getLvl() > 15){
+                        character.getRole().performUltimate();
+                        enemy.setHP(enemy.getHP() - (character.getRole().getDamage() + 7));
+                    }
+                    else {
+                        System.out.println("Your lvl is low. You did simple attack");
+                        character.getRole().performAttack();
+                        enemy.setHP(enemy.getHP() - character.getRole().getDamage());
+                    }
+                }
             }
             else if(choice.equals("2")){
                 defendForRound = true;
+                character.getRole().performDefend();
             }
             else if(choice.equals("3")){
                 System.out.println("There was an ambush of 15 monster guards waiting for you from behind. You're dead.");
@@ -57,9 +98,34 @@ public class SceneThree {
                         "Reward:\n" +
                         "LVL UP\n" +
                         "50 coins.");
-                character.setLvl(character.getLvl() + 1);
+                character.getRole().setLvl(character.getRole().getLvl() + 1);
                 character.setMoney(character.getMoney() + 50);
+
+
             }
+
+            if(isEnemyDefeated){
+                System.out.println("A little further from the battlefield was a chest with a lock.");
+                Chest chest = new Chest(new Close());
+                chest.getState().openClose();
+                int counter = 0;
+                System.out.println("You have 3 attempts to open the chest, otherwise the chest will explode.");
+                while(!(chest.getState() instanceof Open) && counter < 3){
+                    System.out.println("Enter the code: ");
+                    String inputCode = sc.next();
+                    if (inputCode.equals("1042")) chest.setState(new Open());
+                    else System.out.println("Wrong");
+                    counter++;
+                }
+                if(chest.getState() instanceof Open){
+                    chest.openChest();
+                    System.out.println("There were 100 coins inside the chest.");
+                }
+                else {
+                    System.out.println("The chest exploded, you took 3 damage.\nYour HP: " + character.getHP());
+                }
+            }
+
             if(character.getHP() <= 0) {
                 System.out.println("You are so weak that you were killed by the most ordinary archer. You're dead!");
                 System.out.println(
@@ -122,5 +188,9 @@ public class SceneThree {
 
     public void setCharacter(MainCharacter character) {
         this.character = character;
+    }
+
+    public boolean isEnemyDefeated() {
+        return isEnemyDefeated;
     }
 }

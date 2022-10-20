@@ -9,7 +9,7 @@ public class Enemy implements Observed{
     private String name;
     private Role role;
     private int HP;
-    LinkedList<Observer> observers = new LinkedList<>();
+    private LinkedList<Observer> observers = new LinkedList<>();
 
     public Enemy(String name, Role role, int HP) {
         setName(name);

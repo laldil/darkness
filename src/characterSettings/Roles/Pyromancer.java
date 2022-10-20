@@ -7,6 +7,7 @@ public class Pyromancer extends Role{
     public Pyromancer() {
         setRoleName("Pyromancer");
         setDamage(12);
+        setLvl(1);
         setDefence(4);
         setDefendBehavior(new DefendWithFire());
         setAttack(new AttackWithAxe());

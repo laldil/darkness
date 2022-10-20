@@ -1,4 +1,5 @@
 import characterSettings.MainCharacter;
+import scenes.MainScene;
 import scenes.SceneOne;
 import scenes.SceneThree;
 import scenes.SceneTwo;
@@ -20,5 +21,7 @@ public class Main {
         SceneThree.getSceneThree().setCharacter(character);
         if(SceneTwo.getSceneTwo().isSecondSceneDone()) SceneThree.getSceneThree().startScene();
 
+        MainScene.getMainScene().setCharacter(character);
+        if(SceneThree.getSceneThree().isEnemyDefeated()) MainScene.getMainScene().playScene();
     }
 }

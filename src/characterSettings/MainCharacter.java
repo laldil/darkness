@@ -5,14 +5,12 @@ import characterSettings.Roles.Role;
 public class MainCharacter implements Observer{
     private String name;
     private int money;
-    private int lvl;
     private int HP;
     private Role role;
 
     public MainCharacter(String name) {
         setName(name);
         setMoney(0);
-        setLvl(1);
         setHP(100);
     }
 
@@ -40,20 +38,12 @@ public class MainCharacter implements Observer{
         return money;
     }
 
-    public int getLvl() {
-        return lvl;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
     public void setMoney(int money) {
         this.money = money;
-    }
-
-    public void setLvl(int lvl) {
-        this.lvl = lvl;
     }
 
     @Override

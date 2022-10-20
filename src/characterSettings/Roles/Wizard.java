@@ -8,6 +8,7 @@ public class Wizard extends Role{
         setRoleName("Wizard");
         setDamage(15);
         setDefence(3);
+        setLvl(1);
         setAttack(new AttackWithStick());
         setDefendBehavior(new DefendWithStick());
     }

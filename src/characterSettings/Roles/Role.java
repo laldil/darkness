@@ -10,6 +10,15 @@ public class Role {
     private String roleName;
     private int damage;
     private int defence;
+    private int lvl;
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
 
     public String getRoleName() {
         return roleName;
@@ -43,9 +52,22 @@ public class Role {
         this.defendBehavior = defendBehavior;
     }
 
+    public void performSpecialAttack1(){
+        attack.specialAttack1();
+    }
+
+    public void performSpecialAttack2(){
+        attack.specialAttack2();
+    }
+
+    public void performUltimate(){
+        attack.ultimate();
+    }
+
     public void performAttack(){
         attack.attack();
     }
+
     public void performDefend(){
         defendBehavior.defend();
     }
