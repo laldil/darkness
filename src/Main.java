@@ -1,27 +1,35 @@
 import characterSettings.MainCharacter;
+import characterSettings.Save;
 import scenes.MainScene;
 import scenes.SceneOne;
 import scenes.SceneThree;
 import scenes.SceneTwo;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-//        Тут меню и предысторию нужно добавить
-        System.out.println("Enter your name: ");
-        MainCharacter character = new MainCharacter(sc.nextLine());
+        MainCharacter character;
 
-        SceneOne.getSceneOne().startScene();
+        if(Save.loadSave() == null){
+            System.out.println("Enter your name: ");
+            character = new MainCharacter(sc.nextLine());
 
-        SceneTwo.getSceneTwo().setCharacter(character);
-        if(SceneOne.getSceneOne().isMasterKeyDone()) SceneTwo.getSceneTwo().startScene();
+            SceneOne.getSceneOne().startScene();
 
-        SceneThree.getSceneThree().setCharacter(character);
-        if(SceneTwo.getSceneTwo().isSecondSceneDone()) SceneThree.getSceneThree().startScene();
+            SceneTwo.getSceneTwo().setCharacter(character);
+            if(SceneOne.getSceneOne().isMasterKeyDone()) SceneTwo.getSceneTwo().startScene();
+
+            SceneThree.getSceneThree().setCharacter(character);
+            if(SceneTwo.getSceneTwo().isSecondSceneDone()) SceneThree.getSceneThree().startScene();
+        }
+        else character = Save.loadSave();
 
         MainScene.getMainScene().setCharacter(character);
-        if(SceneThree.getSceneThree().isEnemyDefeated()) MainScene.getMainScene().playScene();
+        MainScene.getMainScene().playScene();
     }
+
+
 }

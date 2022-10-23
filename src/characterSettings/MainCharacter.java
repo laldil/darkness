@@ -2,7 +2,9 @@ package characterSettings;
 
 import characterSettings.Roles.Role;
 
-public class MainCharacter implements Observer{
+import java.io.Serializable;
+
+public class MainCharacter implements Observer, Serializable {
     private String name;
     private int money;
     private int HP;

@@ -189,8 +189,4 @@ public class SceneThree {
     public void setCharacter(MainCharacter character) {
         this.character = character;
     }
-
-    public boolean isEnemyDefeated() {
-        return isEnemyDefeated;
-    }
 }

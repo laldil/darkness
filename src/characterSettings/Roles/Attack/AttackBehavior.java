@@ -1,6 +1,8 @@
 package characterSettings.Roles.Attack;
 
-public interface AttackBehavior {
+import java.io.Serializable;
+
+public interface AttackBehavior extends Serializable {
     void attack();
     void specialAttack1();
     void specialAttack2();

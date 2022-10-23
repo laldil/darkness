@@ -3,7 +3,9 @@ package characterSettings.Roles;
 import characterSettings.Roles.Attack.AttackBehavior;
 import characterSettings.Roles.Defend.DefendBehavior;
 
-public class Role {
+import java.io.Serializable;
+
+public class Role implements Serializable {
     AttackBehavior attack;
     DefendBehavior defendBehavior;
 

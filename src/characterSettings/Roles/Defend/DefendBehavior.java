@@ -1,5 +1,7 @@
 package characterSettings.Roles.Defend;
 
-public interface DefendBehavior {
+import java.io.Serializable;
+
+public interface DefendBehavior extends Serializable {
     void defend();
 }

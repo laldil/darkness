@@ -1,6 +1,7 @@
 package scenes;
 
 import characterSettings.MainCharacter;
+import characterSettings.Save;
 
 import java.util.Scanner;
 
@@ -17,11 +18,14 @@ public class MainScene {
 
     public void playScene() {
         System.out.println("1. Go towards the city");
-        System.out.println("2. Inventory");
-        System.out.println("3. Save");
+        System.out.println("2. Go to the forest");
+        System.out.println("3. Inventory");
+        System.out.println("4. Save");
         String choice = sc.next();
 
         if(choice.equals("1")){
+            System.out.println("1. Go to the shop");
+            sc.next();
 
         }
         else if(choice.equals("2")){
@@ -30,9 +34,13 @@ public class MainScene {
         else if(choice.equals("3")){
 
         }
+        else if(choice.equals("4")){
+            Save.save(character);
+        }
     }
 
     public void setCharacter(MainCharacter character) {
         this.character = character;
     }
+
 }
