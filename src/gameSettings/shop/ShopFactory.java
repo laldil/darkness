@@ -6,4 +6,9 @@ public class ShopFactory {
         else if(typeOfShop.equals("Armory")) return new ArmoryShop();
         else return null;
     }
+
+    PotionShop potionShop;
+    Shop clonePotionShop(){
+        return (Shop) potionShop.copy();
+    }
 }
