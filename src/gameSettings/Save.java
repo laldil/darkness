@@ -1,4 +1,6 @@
-package characterSettings;
+package gameSettings;
+
+import characterSettings.MainCharacter;
 
 import java.io.*;
 

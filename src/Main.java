@@ -1,11 +1,10 @@
 import characterSettings.MainCharacter;
-import characterSettings.Save;
+import gameSettings.Save;
 import scenes.MainScene;
 import scenes.SceneOne;
 import scenes.SceneThree;
 import scenes.SceneTwo;
 
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
@@ -25,10 +24,13 @@ public class Main {
             SceneThree.getSceneThree().setCharacter(character);
             if(SceneTwo.getSceneTwo().isSecondSceneDone()) SceneThree.getSceneThree().startScene();
         }
-        else character = Save.loadSave();
+        else {
+            character = Save.loadSave();
+            SceneThree.getSceneThree().setEnemyDefeated(true);
+        }
 
         MainScene.getMainScene().setCharacter(character);
-        MainScene.getMainScene().playScene();
+        if(SceneThree.getSceneThree().isEnemyDefeated()) MainScene.getMainScene().startScene();
     }
 
 

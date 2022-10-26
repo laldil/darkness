@@ -181,6 +181,14 @@ public class SceneThree {
         }
     }
 
+    public boolean isEnemyDefeated() {
+        return isEnemyDefeated;
+    }
+
+    public void setEnemyDefeated(boolean enemyDefeated) {
+        isEnemyDefeated = enemyDefeated;
+    }
+
     private void getInfoAboutStatus(int enemyDamageForRound){
         System.out.println(enemy.getName() + " hit you for " + enemyDamageForRound + " damage");
         System.out.println("Your HP: " + character.getHP());

@@ -9,11 +9,16 @@ public class MainCharacter implements Observer, Serializable {
     private int money;
     private int HP;
     private Role role;
+    Inventory inventory = new Inventory();
 
     public MainCharacter(String name) {
         setName(name);
         setMoney(0);
         setHP(100);
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public int getHP() {
