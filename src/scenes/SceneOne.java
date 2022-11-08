@@ -25,10 +25,8 @@ public class SceneOne {
         System.out.println("2. Call the guard");
         System.out.println("3. Inspect the lying place");
         System.out.println("4. Go to bed");
-        if(isWireFound && isNoteFound){
-            System.out.println("5. Make a master key");
-            isMasterKeyDone = true;
-        }
+        if(isWireFound && isNoteFound) System.out.println("5. Make a master key");
+
         System.out.println("___________________________");
     }
 
@@ -53,13 +51,10 @@ public class SceneOne {
             }
             else if(choice.equals("3")){
                 System.out.println("It's very dusty and dark under lying place, but you could see the note.");
-//                Что-то добавить с будущим сюжетом можно
                 System.out.println("\n1. Go back");
                 System.out.println("2. Read the note");
                 String innerChoice = sc.next();
                 if(innerChoice.equals("2")){
-//                    Тут какой-то текст в записке,
-//                    типо как сделать отмычку или историю трупа, как он пытался сделать отмычку
                     isNoteFound = true;
                     if(isWireFound) System.out.println("\"I see, so I can make a master key from this door.\"");
                     else System.out.println("\"I know how to make a master key, now I need to find something to make it.\"");

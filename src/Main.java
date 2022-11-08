@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        new Game();
+//        new Game();
         
         Scanner sc = new Scanner(System.in);
         MainCharacter character;
@@ -17,7 +17,6 @@ public class Main {
         if(Save.loadSave() == null){
             System.out.println("Enter your name: ");
             character = new MainCharacter(sc.nextLine());
-
             SceneOne.getSceneOne().startScene();
 
             SceneTwo.getSceneTwo().setCharacter(character);

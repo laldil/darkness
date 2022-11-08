@@ -1,6 +1,6 @@
 package gameSettings.items;
 
-public class HPPotion implements Item{
+public class HPPotion implements Item {
     private final String name = "Health potion";
 
     @Override

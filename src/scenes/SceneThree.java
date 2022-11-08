@@ -3,6 +3,7 @@ package scenes;
 import characterSettings.MainCharacter;
 import enemySettings.Enemy;
 import enemySettings.roles.Archer;
+import gameSettings.Save;
 import scenes.chest.Chest;
 import scenes.chest.Close;
 import scenes.chest.Open;
@@ -21,6 +22,15 @@ public class SceneThree {
     MainCharacter character;
     Enemy enemy;
     private boolean isEnemyDefeated = false;
+    private Save save;
+
+    public Save getSave() {
+        return save;
+    }
+
+    public void setSave(Save save) {
+        this.save = save;
+    }
 
     public void startScene(){
         System.out.println("There's a corridor in front of you.\n1. Go through the corridor.");
@@ -38,43 +48,7 @@ public class SceneThree {
             if(choice.equals("1")){
                 System.out.println("1. Simple attack\n2. Special attack 1\n3. Special attack 2\n4. Ultimate");
                 String innerChoice = sc.next();
-                if(innerChoice.equals("1")) {
-                    character.getRole().performAttack();
-                    enemy.setHP(enemy.getHP() - character.getRole().getDamage());
-                }
-                else if(innerChoice.equals("2")){
-                    if(character.getRole().getLvl() > 5){
-                        character.getRole().performSpecialAttack1();
-                        enemy.setHP(enemy.getHP() - (character.getRole().getDamage() + 3));
-                    }
-                    else {
-                        System.out.println("Your lvl is low. You did simple attack");
-                        character.getRole().performAttack();
-                        enemy.setHP(enemy.getHP() - character.getRole().getDamage());
-                    }
-                }
-                else if(innerChoice.equals("3")){
-                    if(character.getRole().getLvl() > 10){
-                        character.getRole().performSpecialAttack2();
-                        enemy.setHP(enemy.getHP() - (character.getRole().getDamage() + 5));
-                    }
-                    else {
-                        System.out.println("Your lvl is low. You did simple attack");
-                        character.getRole().performAttack();
-                        enemy.setHP(enemy.getHP() - character.getRole().getDamage());
-                    }
-                }
-                else if(innerChoice.equals("4")){
-                    if(character.getRole().getLvl() > 15){
-                        character.getRole().performUltimate();
-                        enemy.setHP(enemy.getHP() - (character.getRole().getDamage() + 7));
-                    }
-                    else {
-                        System.out.println("Your lvl is low. You did simple attack");
-                        character.getRole().performAttack();
-                        enemy.setHP(enemy.getHP() - character.getRole().getDamage());
-                    }
-                }
+                FightScene.getFightScene().characterAttackPart(innerChoice, character, enemy);
             }
             else if(choice.equals("2")){
                 defendForRound = true;
@@ -91,7 +65,11 @@ public class SceneThree {
                                 "██▄▄▄▄██");
                 break;
             }
-            if(enemy.getHP() > 0) enemyAttackPart(defendForRound);
+            if(enemy.getHP() > 0) {
+                FightScene.getFightScene().enemyAttackPart(defendForRound, character, enemy);
+                save = character.saveForFight();
+                defendForRound = false;
+            }
             else if(enemy.getHP() <= 0){
                 isEnemyDefeated = true;
                 System.out.println("You have successfully killed the skeleton archer.\n" +
@@ -100,8 +78,6 @@ public class SceneThree {
                         "50 coins.");
                 character.getRole().setLvl(character.getRole().getLvl() + 1);
                 character.setMoney(character.getMoney() + 50);
-
-
             }
 
             if(isEnemyDefeated){
@@ -140,58 +116,12 @@ public class SceneThree {
         }
     }
 
-    private void enemyAttackPart(boolean defendForRound){
-        int enemyTurn = (int)(0 + Math.random() * 100);
-        int enemyDamageForRound;
-        if(enemyTurn < 10){
-            enemyDamageForRound = defendForRound ? enemy.getRole().getDamage() - 3 - character.getRole().getDefence() : enemy.getRole().getDamage() - 3;
-            if(enemyDamageForRound > 0) {
-                character.setHP(character.getHP() - enemyDamageForRound);
-                getInfoAboutStatus(enemyDamageForRound);
-            }
-            else
-                System.out.println("Your defense is too strong. The enemy can't break through you.");
-        }
-        else if(enemyTurn < 50){
-            enemyDamageForRound = defendForRound ? enemy.getRole().getDamage() - 1 - character.getRole().getDefence() : enemy.getRole().getDamage() - 1;
-            if(enemyDamageForRound > 0) {
-                character.setHP(character.getHP() - enemyDamageForRound);
-                getInfoAboutStatus(enemyDamageForRound);
-            }
-            else
-                System.out.println("Your defense is too strong. The enemy can't break through you.");
-        }
-        else if(enemyTurn < 80){
-            enemyDamageForRound = defendForRound ? enemy.getRole().getDamage() - character.getRole().getDefence() : enemy.getRole().getDamage();
-            if(enemyDamageForRound > 0) {
-                character.setHP(character.getHP() - enemyDamageForRound);
-                getInfoAboutStatus(enemyDamageForRound);
-            }
-            else
-                System.out.println("Your defense is too strong. The enemy can't break through you.");
-        }
-        else if(enemyTurn < 100){
-            enemyDamageForRound = defendForRound ? enemy.getRole().getDamage() + 1 - character.getRole().getDefence() : enemy.getRole().getDamage() + 1;
-            if(enemyDamageForRound > 0) {
-                character.setHP(character.getHP() - enemyDamageForRound);
-                getInfoAboutStatus(enemyDamageForRound);
-            }
-            else
-                System.out.println("Your defense is too strong. The enemy can't break through you.");
-        }
-    }
-
     public boolean isEnemyDefeated() {
         return isEnemyDefeated;
     }
 
     public void setEnemyDefeated(boolean enemyDefeated) {
         isEnemyDefeated = enemyDefeated;
-    }
-
-    private void getInfoAboutStatus(int enemyDamageForRound){
-        System.out.println(enemy.getName() + " hit you for " + enemyDamageForRound + " damage");
-        System.out.println("Your HP: " + character.getHP());
     }
 
     public void setCharacter(MainCharacter character) {

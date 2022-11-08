@@ -1,6 +1,7 @@
 package characterSettings;
 
 import characterSettings.Roles.Role;
+import gameSettings.Save;
 
 import java.io.Serializable;
 
@@ -56,5 +57,12 @@ public class MainCharacter implements Observer, Serializable {
     @Override
     public void handleEvent(int enemyHP, String enemyName) {
         System.out.println(enemyName + "'s HP: " + enemyHP);
+    }
+
+    public Save saveForFight(){
+        return new Save(getHP());
+    }
+    public void loadSaveForFight(Save save){
+        setHP(save.getHP());
     }
 }

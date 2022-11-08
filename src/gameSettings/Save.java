@@ -5,6 +5,16 @@ import characterSettings.MainCharacter;
 import java.io.*;
 
 public class Save {
+    public int getHP() {
+        return HP;
+    }
+
+    private int HP;
+
+    public Save(int HP) {
+        this.HP = HP;
+    }
+
     public static void save(MainCharacter character){
         try {
             File file = new File("save.bin");
@@ -20,7 +30,7 @@ public class Save {
     }
 
     public static MainCharacter loadSave(){
-        File file = new File("save.bin");
+        File file = new File(   "save.bin");
         MainCharacter character = null;
         if(file.exists()){
             try {

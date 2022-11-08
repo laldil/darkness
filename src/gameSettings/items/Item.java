@@ -1,6 +1,8 @@
 package gameSettings.items;
 
-public interface Item {
+import java.io.Serializable;
+
+public interface Item extends Serializable {
     void useItem();
     String getName();
 }

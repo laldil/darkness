@@ -1,6 +1,8 @@
 package scenes;
 
 import characterSettings.MainCharacter;
+import enemySettings.Enemy;
+import enemySettings.roles.Archer;
 import gameSettings.Save;
 import gameSettings.items.Item;
 import gameSettings.shop.Shop;
@@ -19,6 +21,7 @@ public class MainScene {
     Scanner sc = new Scanner(System.in);
     ShopFactory shopFactory = new ShopFactory();
     MainCharacter character;
+    private Save save;
 
     public void startScene() {
         while (true) {
@@ -33,16 +36,22 @@ public class MainScene {
                 String innerChoice = sc.next();
                 if(innerChoice.equals("1")){
                     Shop shop = shopFactory.create("Potion");
-                    shop.getItems().forEach((item) -> {
-                        int counter = 1;
-                        System.out.println(counter + ". " + item.getName());
-                        counter++;
-                    });
-                    sc.next();
+                    for(int i = 0; i < shop.getItems().size(); i++)
+                        System.out.println(i + ": " + shop.getItems().get(i).getName());
+                    System.out.println("Choose a potion");
+                    String shopChoice = sc.next();
+                    if(character.getMoney() >= 10 && Integer.parseInt(shopChoice) >= 0 && Integer.parseInt(shopChoice) <= shop.getItems().size() - 1){
+                        character.getInventory().addItem(shop.getItems().get(Integer.parseInt(shopChoice)));
+                        character.setMoney(character.getMoney() - 10);
+                        System.out.println("You bought a " + shop.getItems().get(Integer.parseInt(shopChoice)).getName() + " for $10");
+                    }
+                    else{
+                        System.out.println("You entered it wrong");
+                    }
                 }
                 else if(innerChoice.equals("2")){
                     Shop shop = shopFactory.create("Armory");
-                    System.out.println(shop.getItems());
+                    System.out.println("The armory shop is undergoing repairs.");
                 }
                 else if(innerChoice.equals("3")){
                     System.out.println("You walked into a bar. You've spent 10$ and got 50 hp");
@@ -50,14 +59,51 @@ public class MainScene {
                     character.setMoney(character.getMoney() - 10);
                 }
             } else if (choice.equals("2")) {
+                Enemy enemy = new Enemy("Skeleton", new Archer(), (character.getHP()/2) + 10);
+                enemy.addObserver(character);
+                boolean isEnemyDefeated = false;
+                boolean defendForRound = false;
+                System.out.println("In the forest you met the enemy " + enemy.getName());
+                while(!isEnemyDefeated){
+                    System.out.println("1. Attack\n2. Defend");
+                    String fightOrDefend = sc.next();
+                    if(fightOrDefend.equals("1")) {
+                        System.out.println("1. Simple attack\n2. Special attack 1\n3. Special attack 2\n4. Ultimate");
+                        String innerChoice = sc.next();
+                        FightScene.getFightScene().characterAttackPart(innerChoice, character, enemy);
+                    }
+                    else {
+                        defendForRound = true;
+                        character.getRole().performDefend();
+                    }
+
+                    if(enemy.getHP() > 0){
+                        FightScene.getFightScene().enemyAttackPart(defendForRound, character, enemy);
+                        defendForRound = false;
+                    }
+                    else if (enemy.getHP() <= 0){
+                        isEnemyDefeated = true;
+                        System.out.println("You killed the " + enemy.getName() + ". Your reward:\nLVL UP!\n15 coins.");
+                        character.getRole().setLvl(character.getRole().getLvl() + 1);
+                        character.setMoney(character.getMoney() + 15);
+                    }
+
+                    if(character.getHP() <= 0){
+                        System.out.println("You have lost!");
+                        character.setHP(1);
+                        break;
+                    }
+                }
 
             } else if (choice.equals("3")) {
                 if(character.getInventory().getItems() == null) System.out.println("Inventory is empty");
                 else {
                     System.out.println("Inventory: ");
-                    character.getInventory().getItems().forEach((Item::getName));
+                    for (int i = 0; i < character.getInventory().getItems().size(); i++)
+                        System.out.println(i + ". " + character.getInventory().getItems().get(i).getName());
                 }
                 System.out.println("HP: " + character.getHP());
+                System.out.println("LVL: " + character.getRole().getLvl());
                 System.out.println("Money: " + character.getMoney());
                 System.out.println("Role: " + character.getRole().getRoleName());
             } else if (choice.equals("4")) {
