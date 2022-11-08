@@ -4,7 +4,9 @@ import characterSettings.MainCharacter;
 import enemySettings.Enemy;
 import enemySettings.roles.Archer;
 import gameSettings.Save;
-import gameSettings.items.Item;
+import gameSettings.house.House;
+import gameSettings.house.Kitchen;
+import gameSettings.house.KitchenProxy;
 import gameSettings.shop.Shop;
 import gameSettings.shop.ShopFactory;
 
@@ -28,7 +30,7 @@ public class MainScene {
             System.out.println("1. Go towards the city");
             System.out.println("2. Go to the forest");
             System.out.println("3. Inventory/Status");
-            System.out.println("4. Save");
+            System.out.println("4. Go home (save)");
             String choice = sc.next();
 
             if (choice.equals("1")) {
@@ -83,6 +85,7 @@ public class MainScene {
                     }
                     else if (enemy.getHP() <= 0){
                         isEnemyDefeated = true;
+                        enemy.removeObserver(character);
                         System.out.println("You killed the " + enemy.getName() + ". Your reward:\nLVL UP!\n15 coins.");
                         character.getRole().setLvl(character.getRole().getLvl() + 1);
                         character.setMoney(character.getMoney() + 15);
@@ -107,6 +110,16 @@ public class MainScene {
                 System.out.println("Money: " + character.getMoney());
                 System.out.println("Role: " + character.getRole().getRoleName());
             } else if (choice.equals("4")) {
+                House house;
+                if(character.getRole().getLvl() <= 10) {
+                    house = new House.HouseBuilder("Tent").build();
+                }
+                else {
+                    house = new House.HouseBuilder("Wooden house").setFirstRoom(new KitchenProxy()).build();
+                    house.getFirstRoom().boostCharacteristic(character);
+                }
+
+                System.out.println("You got some sleep at " + house.getName());
                 Save.save(character);
             }
         }

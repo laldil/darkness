@@ -8,7 +8,7 @@ public class ShopFactory {
     }
 
     PotionShop potionShop;
-    Shop clonePotionShop(){
+    public Shop clonePotionShop(){
         return (Shop) potionShop.copy();
     }
 }
