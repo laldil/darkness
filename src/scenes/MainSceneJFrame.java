@@ -27,6 +27,7 @@ public class MainSceneJFrame {
     static int coins=SceneThreeJFrame.coins;
     static String items="";
     static String potion="";
+    static boolean isEnemyDefeated=false;
     static String role;
     public static String getRole(){
         if(SceneTwoJFrame.weapon=="Sword"){
@@ -151,7 +152,8 @@ public class MainSceneJFrame {
     }
     public static void mainScene(){
         position="main";
-        if(monsterHP<=0) {
+        monsterHP = 65;
+        if(isEnemyDefeated) {
             lvl=lvl+1;
             coins+=15;
             mainTextArea.setText("""
@@ -160,6 +162,8 @@ public class MainSceneJFrame {
                     LVL UP!
                     15 coins""");
         }else{
+            playerHP = 110;
+            hpLabelNumber.setText("" + playerHP);
             mainTextArea.setText("You are in main location!");
         }
         c1.setText("Go towards the city");
@@ -206,11 +210,47 @@ public class MainSceneJFrame {
     }
     public static void forest(){
         position="forest";
-        mainTextArea.setText("In the forest you met the troll"+"\n"+"Monster HP: "+ monsterHP);
+        isEnemyDefeated=false;
+        if(playerHP>0) {
+            mainTextArea.setText("In the forest you met the troll" + "\n" + "Monster HP: " + monsterHP);
+            c1.setText("attack");
+            c2.setText("defend");
+            c3.setText("");
+            c4.setText("");
+        }else{
+            mainTextArea.setText("YOU DIED");
+            c1.setText("");
+            c2.setText("");
+            c3.setText("RESTART");
+            c4.setText("");
+        }
+    }
+    public static void attack(){
+        position="attack";
+        mainTextArea.setText("Monster HP: "+ monsterHP);
         c1.setText("simple attack");
         c2.setText("special attack");
         c3.setText("special attack 2");
         c4.setText("Ultimate");
+    }
+    public static void defend(){
+        playerHP=playerHP-5;
+        hpLabelNumber.setText("" + playerHP);
+        position = "defend";
+        if (playerHP <= 0) {
+            mainTextArea.setText("""
+                             You are so weak that you were killed by the most ordinary archer. You're dead!""");
+            c1.setText("");
+            c2.setText("RESTART");
+        }
+        else{
+            mainTextArea.setText("""
+                             Skeleton attacked you!""");
+            c1.setText("Back");
+            c2.setText("");
+        }
+        c3.setText("");
+        c4.setText("");
     }
     public void simpleAttack(){
         position = "simpleAttack";
@@ -219,6 +259,7 @@ public class MainSceneJFrame {
         hpLabelNumber.setText("" + playerHP);
         if (monsterHP <= 0) {
             mainTextArea.setText("Monster DIED");
+            isEnemyDefeated=true;
             c1.setText("");
             c2.setText("Next");
         } else {
@@ -238,6 +279,7 @@ public class MainSceneJFrame {
             monsterHP = monsterHP-20;
             if(monsterHP<=0){
                 mainTextArea.setText("Monster DIED");
+                isEnemyDefeated=true;
                 c1.setText("");
                 c2.setText("Next");
             }
@@ -265,6 +307,7 @@ public class MainSceneJFrame {
             hpLabelNumber.setText("" + playerHP);
             if(monsterHP<=0){
                 mainTextArea.setText("Monster DIED");
+                isEnemyDefeated=true;
                 c1.setText("");
                 c2.setText("Next");
             }
@@ -292,6 +335,7 @@ public class MainSceneJFrame {
             hpLabelNumber.setText("" + playerHP);
             if(monsterHP<=0){
                 mainTextArea.setText("Monster DIED");
+                isEnemyDefeated=true;
                 c1.setText("");
                 c2.setText("Next");
             }
@@ -330,7 +374,7 @@ public class MainSceneJFrame {
             mainTextArea.setText("You got some sleep at Tent house");
         }
         else{
-            playerHP =120;
+            playerHP +=20;
             hpLabelNumber.setText("" + playerHP);
             mainTextArea.setText("You got some sleep at Wooden house");
         }
@@ -387,10 +431,23 @@ public class MainSceneJFrame {
                     break;
                 case"forest":
                     switch (yourChoice){
+                        case "c1"-> attack();
+                        case "c2"->defend();
+                        case "c3"->mainScene();
+                    }
+                    break;
+                case"attack":
+                    switch (yourChoice){
                         case "c1"-> simpleAttack();
                         case "c2"->specialAttack();
                         case "c3"->specialAttack2();
                         case "c4"->ultimate();
+                    }
+                    break;
+                case"defend":
+                    switch (yourChoice){
+                        case "c1"-> forest();
+                        case "c2"->mainScene();
                     }
                     break;
                 case"simpleAttack":
