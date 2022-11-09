@@ -140,11 +140,11 @@ public class SceneOneJFrame {
 
         playerHP = 100;
         monsterHP = 20;
-        weapon = "None";
+        weapon = "";
         weaponLabelName.setText(weapon);
         hpLabelNumber.setText("" + playerHP);
 
-        SceneOneJFrame.sceneOne();
+        sceneOne();
     }
     public static void sceneOne(){
         position="sceneOne";
@@ -198,7 +198,7 @@ public class SceneOneJFrame {
                 case "masterKey":
                     if ("c1".equals(yourChoice) && isMasterKeyDone) {
                         SceneTwoJFrame sceneTwoJFrame = new SceneTwoJFrame();
-                        sceneTwoJFrame.sceneTwo(container,mainTextPanel,choiceButtonPanel);
+                        sceneTwoJFrame.sceneTwo(container,mainTextPanel,choiceButtonPanel,playerPanel);
                     }
             }
 

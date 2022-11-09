@@ -1,11 +1,5 @@
 package scenes;
 
-import characterSettings.MainCharacter;
-import characterSettings.Roles.Hunter;
-import characterSettings.Roles.Pyromancer;
-import characterSettings.Roles.Warrior;
-import characterSettings.Roles.Wizard;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -36,11 +30,15 @@ public class SceneTwoJFrame {
     boolean isClassTaken=false;
     boolean isInspectDone=false;
     Container conS2;
-    public void sceneTwo(Container con, JPanel mainTextPanel, JPanel choiceButtonPanel){
+
+
+    public void sceneTwo(Container con, JPanel mainTextPanel, JPanel choiceButtonPanel,JPanel playerPanelS1){
         mainTextPanel.setVisible(false);
         choiceButtonPanel.setVisible(false);
+        playerPanelS1.setVisible(false);
         con.remove(mainTextPanel);
         con.remove(choiceButtonPanel);
+        con.remove(playerPanelS1);
 
         conS2=con;
 
@@ -141,7 +139,7 @@ public class SceneTwoJFrame {
 
         playerHP = 100;
         monsterHP = 20;
-        weapon = "None";
+        weapon = "";
         weaponLabelName.setText(weapon);
         hpLabelNumber.setText("" + playerHP);
 
@@ -160,7 +158,8 @@ public class SceneTwoJFrame {
         c3.setText("Go to the armory room.");
         c4.setText("");
     }
-    public void openBook(){
+
+    public static void openBook(){
         position="openBook";
         mainTextArea.setText("""
                 You opened the book, there's nothing special in the book.
@@ -245,70 +244,48 @@ public class SceneTwoJFrame {
             switch(position){
                 case "sceneTwo":
                     switch (yourChoice) {
-                        case "c1" -> openBook();
+                        case "c1" -> {
+                            openBook();
+                        }
                         case "c2" -> {
-                            if(getRole){
                                 run();
-                            }
                         }
                         case "c3" -> {
-                            if(isInspectDone){
                                 armory();
-                            }
                         }
                     }
+                    break;
                 case"openBook":
+                case"warrior":
+                case"pyromancer":
+                case"wizard":
+                case"hunter":
                     if ("c1".equals(yourChoice)) {
-                        isInspectDone = true;
-                        isClassTaken=true;
                         sceneTwo();
                     }
+                    break;
                 case"armory":
                     switch (yourChoice) {
                         case "c1" -> {
-                            if(isClassTaken) {
                                 warrior();
-                            }
                         }
                         case "c2" -> {
-                            if(isClassTaken) {
                                 pyromancer();
-                            }
                         }
                         case "c3" -> {
-                            if(isClassTaken) {
                                 wizard();
-                            }
                         }
                         case "c4" -> {
-                            if(isClassTaken) {
                                 hunter();
-                            }
                         }
                     }
+                    break;
                 case"run":
-                    switch (yourChoice) {
-                        case "c1" -> {
-                            SceneThreeJFrame sceneThreeJFrame = new SceneThreeJFrame();
-                            sceneThreeJFrame.sceneThree(conS2,mainTextPanelS2,choiceButtonPanelS2);
-                        }
+                    if ("c1".equals(yourChoice)) {
+                        SceneThreeJFrame sceneThreeJFrame = new SceneThreeJFrame();
+                        sceneThreeJFrame.sceneThree(conS2, mainTextPanelS2, choiceButtonPanelS2, playerPanel);
                     }
-                case"warrior":
-                    switch (yourChoice) {
-                        case "c1"->sceneTwo();
-                    }
-                case"pyromancer":
-                    switch (yourChoice) {
-                        case "c1"->sceneTwo();
-                    }
-                case"wizard":
-                    switch (yourChoice) {
-                        case "c1"->sceneTwo();
-                    }
-                case"hunter":
-                    switch (yourChoice) {
-                        case "c1"->sceneTwo();
-                    }
+                    break;
             }
 
         }
